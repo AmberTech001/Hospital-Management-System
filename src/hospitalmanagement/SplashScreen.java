@@ -4,6 +4,8 @@
  */
 package hospitalmanagement;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author hp
@@ -27,31 +29,55 @@ public class SplashScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         BackgroundPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        DoctorsTeam = new javax.swing.JLabel();
+        LoadingBar = new javax.swing.JProgressBar();
+        LoadingLabel = new javax.swing.JLabel();
+        HospitalName = new javax.swing.JLabel();
+        LoadingValue = new javax.swing.JLabel();
+        BackgroundImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         BackgroundPanel.setBackground(new java.awt.Color(0, 255, 255));
-        BackgroundPanel.setToolTipText("");
-        BackgroundPanel.setPreferredSize(new java.awt.Dimension(800, 500));
-        BackgroundPanel.setRequestFocusEnabled(false);
+        BackgroundPanel.setPreferredSize(new java.awt.Dimension(900, 500));
         BackgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hospitalmanagement/Assets/Background3.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        BackgroundPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1570, 500));
+        DoctorsTeam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hospitalmanagement/Assets/Doctor_image3.jpg"))); // NOI18N
+        DoctorsTeam.setText("jLabel1");
+        BackgroundPanel.add(DoctorsTeam, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 600, 400));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hospitalmanagement/Assets/Background.image.jpg"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BackgroundPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 60, 770, 390));
+        LoadingBar.setForeground(new java.awt.Color(255, 255, 255));
+        BackgroundPanel.add(LoadingBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 900, 10));
+
+        LoadingLabel.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        LoadingLabel.setForeground(new java.awt.Color(255, 255, 255));
+        LoadingLabel.setText("Loading...");
+        BackgroundPanel.add(LoadingLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, -1, -1));
+
+        HospitalName.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        HospitalName.setForeground(new java.awt.Color(255, 255, 255));
+        HospitalName.setText("CHURCH ROAD HOSPITAL");
+        BackgroundPanel.add(HospitalName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, -1, -1));
+
+        LoadingValue.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        LoadingValue.setForeground(new java.awt.Color(255, 255, 255));
+        LoadingValue.setText("0%");
+        BackgroundPanel.add(LoadingValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 470, 30, -1));
+
+        BackgroundImage.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BackgroundImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hospitalmanagement/Assets/Background4.jpg"))); // NOI18N
+        BackgroundImage.setText("jLabel1");
+        BackgroundImage.setPreferredSize(new java.awt.Dimension(900, 500));
+        BackgroundPanel.add(BackgroundImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BackgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1570, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(BackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -61,6 +87,7 @@ public class SplashScreen extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -91,16 +118,45 @@ public class SplashScreen extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SplashScreen().setVisible(true);
+        SplashScreen sp = new SplashScreen();
+        sp.setVisible(true);
+        
+        try{  Thread.sleep(100); 
+            for(int i=0;i<=100;i++){
+                  sp.LoadingValue.setText(i +"%");
+               Thread.sleep(100);
+                sp.LoadingValue.setText(i +"%");
+                
+                if(i==10){
+                    sp.LoadingLabel.setText("Turning on Modules...");
+                }
+                 if(i==20){
+                    sp.LoadingLabel.setText("Loading on Modules...");
+                }
+                  if(i==50){
+                    sp.LoadingLabel.setText("Connecting to Database...");
+                }
+                   if(i==70){
+                    sp.LoadingLabel.setText("Connection Successful !!");
+                }
+                    if(i==80){
+                    sp.LoadingLabel.setText("Launching Aplication...");
+                }
+                    sp.LoadingBar.setValue(i);
             }
-        });
+        }
+        catch (InterruptedException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BackgroundImage;
     private javax.swing.JPanel BackgroundPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel DoctorsTeam;
+    private javax.swing.JLabel HospitalName;
+    private javax.swing.JProgressBar LoadingBar;
+    private javax.swing.JLabel LoadingLabel;
+    private javax.swing.JLabel LoadingValue;
     // End of variables declaration//GEN-END:variables
 }
